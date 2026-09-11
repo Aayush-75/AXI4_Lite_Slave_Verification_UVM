@@ -180,7 +180,6 @@ class scoreboard extends uvm_scoreboard;
                     end
                 end
             end
-        end
     endtask
 
     task chekkk();

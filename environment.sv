@@ -14,7 +14,7 @@ class environment extends uvm_env;
         super.build_phase(phase);
         ia = ip_agent::type_id::create("ip_agent",this);
         oa = op_agent::type_id::create("op_agent",this);
-        scb = my_scb::type_id::create("scb",this);
+        scb = scoreboard::type_id::create("scb",this);
     endfunction
 
     function void connect_phase(uvm_phase phase);
