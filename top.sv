@@ -14,7 +14,7 @@ module top;
 
     axi_if DUV_IF(clk,rst);
 
-//left to do signal attaching
+	dut d1(.ACLK(clk), .ARESETn(rst), .AWADDR(vif.AWADDR), .AWPROT(3'b000), .AWVALID(vif.AWVALID), .AWREADY(vif.AWREADY), .WDATA(vif.WDATA), .WSTRB(vif.WSTRB), .WVALID(vif.WVALID), .WREADY(vif.WREADY), .BRESP(vif.BRESP), .BVALID(vif.BVALID), .BREADY(vif.BREADY), .ARADDR(vif.ARADDR), .ARPROT(3'b000), .ARVALID(vif.ARVALID), .ARREADY(vif.ARREADY), .RDATA(vif.RDATA), .RRESP(vif.RRESP), .RVALID(vif.RVALID), .RREADY(vif.RREADY));
 
     initial
 		forever 
@@ -22,9 +22,9 @@ module top;
 
  	initial
 	begin
-		rst=1;
-		@(posedge clk);
 		rst=0;
+		@(posedge clk);
+		rst=1;
 		$display("%0t: RESET ENDED",$time);
 	end
  	initial
@@ -33,4 +33,4 @@ module top;
 	    run_test("test");
 	end	
     
-endmoduleN
+endmodule
