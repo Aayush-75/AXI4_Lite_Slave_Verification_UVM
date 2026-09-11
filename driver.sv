@@ -12,13 +12,13 @@ class my_driver extends uvm_driver#(seq_item);
 
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        if(!uvm_config_db#(alu_config)::get(this,"","cfg",cfg))
-            'uvm_fatal(get_type_name(),"CONFIG FILE FATCHING FAILED");
+        if(!uvm_config_db#(axi_config)::get(this,"","vif",cfg))
+            `uvm_fatal(get_type_name(),"CONFIG FILE FATCHING FAILED");
     endfunction
 
     function void connect_phase(uvm_phase phase);
-        vif = cfg.vif;
-        intrf = cfg.vif;
+        vif = cfg.intrf;
+        intrf = cfg.intrf;
     endfunction
 
     task run_phase(uvm_phase phase);

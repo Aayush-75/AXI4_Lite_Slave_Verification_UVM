@@ -1,6 +1,6 @@
 `include "define.sv"
 
-interface axi_if(input ACLK,ARESETn);
+interface axi_if(input clk,rst);
 
     //write address chanel 
     //m->s
@@ -12,7 +12,7 @@ interface axi_if(input ACLK,ARESETn);
     //write data channel
     //m->s
     bit [`DATA_WIDTH-1:0] WDATA;
-    bit [`STB_WIDTH-1:0] WSTRB;
+    bit [`STRB_WIDTH-1:0] WSTRB;
     bit WVALID;
     //s->m
     bit WREADY;
@@ -49,7 +49,7 @@ interface axi_if(input ACLK,ARESETn);
         input AWADDR,AWVALID,WDATA,WSTRB,BREADY,ARADDR,ARVALID,RREADY;
     endclocking 
 
-    clocking op_cb @(psoedge clk);
+    clocking op_cb @(posedge clk);
         default input #1 output #1;
         input AWREADY,WREADY,BRESP,BVALID,ARREADY,RRESP,RDATA,RVALID;
     endclocking 

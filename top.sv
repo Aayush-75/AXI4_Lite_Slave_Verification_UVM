@@ -1,8 +1,7 @@
 `include "pkg.sv"
 `include "interface.sv" 
-`include "ram_dp_ar_aw.sv"
-`include "syn_fifo.sv"
-`include "checker.sv"	
+`include "dut.sv"
+//`include "checker.sv"	
 	
 
 module top;

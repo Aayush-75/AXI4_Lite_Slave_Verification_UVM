@@ -1,4 +1,4 @@
-`include "defines.sv"
+`include "define.sv"
 
 class scoreboard extends uvm_scoreboard;
 
@@ -50,7 +50,6 @@ class scoreboard extends uvm_scoreboard;
     endtask
 
     task ref_task();
-        begin
             //logic for channel status
             //write
             if(i_seq.AWVALID)
@@ -149,7 +148,7 @@ class scoreboard extends uvm_scoreboard;
                     ref_var.BRESP = 0;
                     ref_var.BVALID = 1;
                 end
-                else if(!(ref_var.AWADDR insde {[0:63]}))
+                else if(!(ref_var.AWADDR inside {[0:63]}))
                 begin
                     ref_var.BRESP = 3;
                     ref_var.BVALID = 1;
@@ -171,7 +170,7 @@ class scoreboard extends uvm_scoreboard;
                         ref_var.RDATA = mem[ref_var.ARADDR];
                         ref_var.RRESP = 0;
                     end
-                    else if(!(ref_var.ARADDR insde {[0:63]}))
+                    else if(!(ref_var.ARADDR inside {[0:63]}))
                     begin
                         ref_var.RRESP = 3;
                     end

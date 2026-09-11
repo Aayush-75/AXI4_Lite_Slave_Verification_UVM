@@ -22,7 +22,7 @@ class ip_agent extends uvm_agent;
         mon = ip_mon::type_id::create("input_monitor",this);
     endfunction
 
-    function connect_phase(uvm_phase phase);
+    function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
         drv.seq_item_port.connect(sqr.seq_item_export);
     endfunction

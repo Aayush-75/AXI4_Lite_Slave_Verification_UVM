@@ -18,8 +18,8 @@ class environment extends uvm_env;
     endfunction
 
     function void connect_phase(uvm_phase phase);
-        ia.mon.ip_mon_analysis_port.connect(scb.ip_fifo.analysis_export);
-        oa.mon.op_mon_analysis_port.connect(scb.op_fifo.analysis_export);
+        ia.mon.ip_analysis_port.connect(scb.ip_fifo.analysis_export);
+        oa.mon.op_analysis_port.connect(scb.op_fifo.analysis_export);
     endfunction
     
 endclass

@@ -1,7 +1,7 @@
 package pkg;
     `include "uvm_macros.svh"
     import uvm_pkg::*;
-    `include "defines.sv"
+    `include "define.sv"
     `include "config.sv"
     `include "seq_item.sv"
     `include "sequence.sv"
@@ -12,7 +12,7 @@ package pkg;
     `include "ip_agent.sv"
     `include "op_agent.sv"
     `include "scoreboard.sv"
-    `include "subscriber.sv"
-    `include "env.sv"
+    //`include "subscriber.sv"
+    `include "environment.sv"
     `include "test.sv"
 endpackage

@@ -14,7 +14,7 @@ class op_mon extends uvm_monitor;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
-            `uvm_fatal(get_type_name,"CONFIG FETCHING FAILED")
+            `uvm_fatal(get_type_name(),"CONFIG FETCHING FAILED")
         op_analysis_port = new("op_analysis_port",this);
     endfunction
 
@@ -27,7 +27,7 @@ class op_mon extends uvm_monitor;
         repeat(4) @(intrf.ip_cb);
         forever
         begin
-            seq = seq_item::create("seq",this);
+            seq = seq_item::create("seq");
             seq.AWREADY = intrf.AWREADY;
             seq.WREADY = intrf.WREADY;
             seq.BRESP = intrf.BRESP;
@@ -36,7 +36,7 @@ class op_mon extends uvm_monitor;
             seq.RDATA = intrf.RDATA;
             seq.RRESP = intrf.RRESP;
             seq.RVALID = intrf.RVALID;
-            @(intrf.ip_cb);
+            @(intrf.op_cb);
         end
     endtask
 

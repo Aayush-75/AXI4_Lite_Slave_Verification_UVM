@@ -14,7 +14,7 @@ class ip_mon extends uvm_monitor;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
-            `uvm_fatal(get_type_name,"CONFIG FETCHING FAILED")
+            `uvm_fatal(get_type_name(),"CONFIG FETCHING FAILED")
         ip_analysis_port = new("ip_analysis_port",this);
     endfunction
 
@@ -27,7 +27,7 @@ class ip_mon extends uvm_monitor;
         repeat(3) @(intrf.ip_cb);
         forever
         begin
-            seq = seq_item::create("seq",this);
+            seq = seq_item::create("seq");
             seq.AWADDR = intrf.AWADDR;
             seq.AWVALID = intrf.AWVALID;
             seq.WDATA = intrf.WDATA;

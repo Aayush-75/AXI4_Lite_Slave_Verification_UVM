@@ -13,7 +13,7 @@ class op_agent extends uvm_agent;
         if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
             `uvm_fatal(get_type_name(),"CONFIG FILE FETCH FAIL")
         if(cfg.op_agent == UVM_PASSIVE)
-            mon = ip_mon::type_id::create("output_monitor",this);
+            mon = op_mon::type_id::create("output_monitor",this);
     endfunction
 
 endclass

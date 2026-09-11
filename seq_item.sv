@@ -1,6 +1,6 @@
 `include "define.sv"
 
-class seq_item extends uvm_seq_item;
+class seq_item extends uvm_sequence_item;
 
     `uvm_object_utils(seq_item)
 
@@ -14,7 +14,7 @@ class seq_item extends uvm_seq_item;
     //write data channel
     //m->s
     rand bit [`DATA_WIDTH-1:0] WDATA;
-    rand bit [`STB_WIDTH-1:0] WSTRB;
+    rand bit [`STRB_WIDTH-1:0] WSTRB;
     rand bit WVALID;
     //s->m
     bit WREADY;

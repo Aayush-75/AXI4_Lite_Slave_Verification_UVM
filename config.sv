@@ -2,7 +2,7 @@ class axi_config extends uvm_object;
 
     `uvm_object_utils(axi_config)
 
-    function void new(string name="axi_config",uvm_component parent=null);
+    function new(string name="axi_config",uvm_component parent=null);
         super.new(name,parent);
     endfunction
 
