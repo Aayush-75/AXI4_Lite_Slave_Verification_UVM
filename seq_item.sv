@@ -3,7 +3,7 @@
 class seq_item extends uvm_sequence_item;
 
     `uvm_object_utils(seq_item)
-
+ 
     function new(string name="");
     	super.new(name);
     endfunction
@@ -53,6 +53,8 @@ class seq1 extends seq_item;
     
     function new(string name="");
     	super.new(name);
+
+
     endfunction
 
 //    constraint c
@@ -72,7 +74,7 @@ class seq1 extends seq_item;
 	ARVALID == 0;
 	RREADY == 1;
 	
-        //write channel constraint
+     	   //write channel constraint
         //AWVALID dist
         //{
         //    0 := 9,
