@@ -28,11 +28,11 @@ class test extends uvm_test;
 
     task run_phase(uvm_phase phase);
         phase.raise_objection(this);
+        seq = my_sequence::type_id::create("seq");
         seq_item::type_id::set_type_override(seq1::get_type());
-	    seq = my_sequence::type_id::create("seq");
         repeat(100) seq.start(env.ia.sqr);
         seq_item::type_id::set_type_override(seq2::get_type());
-        //repeat(50) seq.start(env.ia.sqr);
+        repeat(100) seq.start(env.ia.sqr);
         seq_item::type_id::set_type_override(seq1::get_type());
         //repeat(50) seq.start(env.ia.sqr);
         seq_item::type_id::set_type_override(seq3::get_type());

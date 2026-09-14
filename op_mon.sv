@@ -36,7 +36,7 @@ class op_mon extends uvm_monitor;
             seq.RDATA = intrf.op_cb.RDATA;
             seq.RRESP = intrf.op_cb.RRESP;
             seq.RVALID = intrf.op_cb.RVALID;
-            `uvm_info(get_type_name(),$sformatf("[%0t]: DUT: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,seq.BRESP,seq.RDATA,seq.RRESP),UVM_MEDIUM);
+            //`uvm_info(get_type_name(),$sformatf("[%0t]: DUT: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,seq.BRESP,seq.RDATA,seq.RRESP),UVM_MEDIUM);
 	    op_analysis_port.write(seq);
             @(intrf.op_cb);
         end

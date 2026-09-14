@@ -13,7 +13,10 @@ module top;
 
     axi_if DUV_IF(clk,rst);
 
-    axi4_lite_slave d1 (
+    axi4_lite_slave#(
+    .ADDR_WIDTH(`ADDR_WIDTH),
+    .DATA_WIDTH(`DATA_WIDTH)
+    ) d1 (
     .ACLK    (clk), 
     .ARESETn (rst), 
     .AWADDR  (DUV_IF.AWADDR),   

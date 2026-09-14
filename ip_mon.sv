@@ -37,7 +37,7 @@ class ip_mon extends uvm_monitor;
             seq.ARADDR = intrf.ip_cb.ARADDR;
             seq.ARVALID = intrf.ip_cb.ARVALID;
             seq.RREADY = intrf.ip_cb.RREADY;
-            `uvm_info(get_type_name(),$sformatf("[%0t]: INPUT: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d ARADDR=%0d ARVALID=%0d RREAD=%0d",$time,seq.AWADDR,seq.AWVALID,seq.WDATA,seq.WSTRB,seq.WVALID,seq.ARADDR,seq.ARVALID,seq.RREADY),UVM_MEDIUM);
+            `uvm_info(get_type_name(),$sformatf("[%0t]: INPUT: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d BREADY=%0d ARADDR=%0d ARVALID=%0d RREADY=%0d",$time,seq.AWADDR,seq.AWVALID,seq.WDATA,seq.WSTRB,seq.WVALID,seq.BREADY, seq.ARADDR,seq.ARVALID,seq.RREADY),UVM_MEDIUM);
 	    ip_analysis_port.write(seq);
             @(intrf.ip_cb);
         end

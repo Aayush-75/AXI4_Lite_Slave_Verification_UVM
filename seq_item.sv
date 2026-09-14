@@ -65,10 +65,11 @@ class seq1 extends seq_item;
 	AWADDR == 4;
 	ARADDR == 4;
 	AWVALID == 1;
+	WDATA == 100;
 	WSTRB == 4'b1111;
 	WVALID == 1;	
 	BREADY == 1;
-	ARVALID == 1;
+	ARVALID == 0;
 	RREADY == 1;
 	
         //write channel constraint
@@ -105,24 +106,33 @@ class seq2 extends seq_item;
     constraint c1  //for write channel
     {
         //write channel constraint
-        AWVALID dist
-        {
-            0 := 13,
-            1 := 1
-        };
-        WVALID dist
-        {
-            0 := 9,
-            1 := 1
-        };
+	AWADDR == 4;
+	ARADDR == 4;
+	AWVALID == 0;
+	WDATA == 100;
+	WSTRB == 4'b1111;
+	WVALID == 1;	
+	BREADY == 1;
+	ARVALID == 1;
+	RREADY == 1;
+        //AWVALID dist
+        //{
+        //    0 := 13,
+        //    1 := 1
+        //};
+        //WVALID dist
+        //{
+        //    0 := 9,
+        //    1 := 1
+        //};
         //after this wait for BVALID in driver and when BVALID comes send BREADY 
 
         //read channel constraint 
-        ARVALID dist
-        {
-            0 := 13,
-            1 := 1
-        };
+        //ARVALID dist
+        //{
+        //    0 := 13,
+        //    1 := 1
+        //};
         //after this wait for RVALID in driver and when RVALID comes send RREADY
     }
 endclass
