@@ -62,8 +62,8 @@ class seq1 extends seq_item;
 
     constraint c1  //for write channel
     {
-	AWADDR == 5;
-	ARADDR == 5;
+	AWADDR == 4;
+	ARADDR == 4;
 	AWVALID == 1;
 	WSTRB == 4'b1111;
 	WVALID == 1;	
