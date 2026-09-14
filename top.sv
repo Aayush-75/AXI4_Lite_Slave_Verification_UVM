@@ -13,7 +13,29 @@ module top;
 
     axi_if DUV_IF(clk,rst);
 
-	dut d1(.ACLK(clk), .ARESETn(rst), .AWADDR(vif.AWADDR), .AWPROT(3'b000), .AWVALID(vif.AWVALID), .AWREADY(vif.AWREADY), .WDATA(vif.WDATA), .WSTRB(vif.WSTRB), .WVALID(vif.WVALID), .WREADY(vif.WREADY), .BRESP(vif.BRESP), .BVALID(vif.BVALID), .BREADY(vif.BREADY), .ARADDR(vif.ARADDR), .ARPROT(3'b000), .ARVALID(vif.ARVALID), .ARREADY(vif.ARREADY), .RDATA(vif.RDATA), .RRESP(vif.RRESP), .RVALID(vif.RVALID), .RREADY(vif.RREADY));
+    axi4_lite_slave d1 (
+    .ACLK    (clk), 
+    .ARESETn (rst), 
+    .AWADDR  (DUV_IF.AWADDR),   
+    .AWPROT  (3'b000), 
+    .AWVALID (DUV_IF.AWVALID), 
+    .AWREADY (DUV_IF.AWREADY), 
+    .WDATA   (DUV_IF.WDATA), 
+    .WSTRB   (DUV_IF.WSTRB), 
+    .WVALID  (DUV_IF.WVALID), 
+    .WREADY  (DUV_IF.WREADY), 
+    .BRESP   (DUV_IF.BRESP), 
+    .BVALID  (DUV_IF.BVALID), 
+    .BREADY  (DUV_IF.BREADY), 
+    .ARADDR  (DUV_IF.ARADDR), 
+    .ARPROT  (3'b000), 
+    .ARVALID (DUV_IF.ARVALID), 
+    .ARREADY (DUV_IF.ARREADY), 
+    .RDATA   (DUV_IF.RDATA), 
+    .RRESP   (DUV_IF.RRESP), 
+    .RVALID  (DUV_IF.RVALID), 
+    .RREADY  (DUV_IF.RREADY)
+    );
 
     initial
 		forever 
@@ -28,7 +50,7 @@ module top;
 	end
  	initial
 	begin
-		uvm_config_db#(virtual axi_if)::set(null,"*","vif",DUV_IF);
+	    uvm_config_db#(virtual axi_if)::set(null,"*","vif",DUV_IF);
 	    run_test("test");
 	end	
     

@@ -13,7 +13,7 @@ class op_mon extends uvm_monitor;
 
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
+        if(!uvm_config_db#(axi_config)::get(this,"","vif",cfg))
             `uvm_fatal(get_type_name(),"CONFIG FETCHING FAILED")
         op_analysis_port = new("op_analysis_port",this);
     endfunction
@@ -24,18 +24,19 @@ class op_mon extends uvm_monitor;
     endfunction
 
     task run_phase(uvm_phase phase);
-        repeat(4) @(intrf.ip_cb);
+        repeat(4) @(intrf.op_cb);
         forever
         begin
-            seq = seq_item::create("seq");
-            seq.AWREADY = intrf.AWREADY;
-            seq.WREADY = intrf.WREADY;
-            seq.BRESP = intrf.BRESP;
-            seq.BVALID = intrf.BVALID;
-            seq.ARREADY = intrf.ARREADY;
-            seq.RDATA = intrf.RDATA;
-            seq.RRESP = intrf.RRESP;
-            seq.RVALID = intrf.RVALID;
+            seq = seq_item::type_id::create("seq");
+            seq.AWREADY = intrf.op_cb.AWREADY;
+            seq.WREADY = intrf.op_cb.WREADY;
+            seq.BRESP = intrf.op_cb.BRESP;
+            seq.BVALID = intrf.op_cb.BVALID;
+            seq.ARREADY = intrf.op_cb.ARREADY;
+            seq.RDATA = intrf.op_cb.RDATA;
+            seq.RRESP = intrf.op_cb.RRESP;
+            seq.RVALID = intrf.op_cb.RVALID;
+	    op_analysis_port.write(seq);
             @(intrf.op_cb);
         end
     endtask

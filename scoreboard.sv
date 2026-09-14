@@ -37,9 +37,10 @@ class scoreboard extends uvm_scoreboard;
         super.new(name,parent);
         ip_fifo = new("ip_fifo",this);
         op_fifo = new("op_fifo",this);
+	ref_var = new("seq");
     endfunction
 
-    task run_phase();
+    task run_phase(uvm_phase phase);
         forever 
         begin
             op_fifo.get(o_seq);
@@ -56,7 +57,7 @@ class scoreboard extends uvm_scoreboard;
             begin
                 busy_wa = 1;
             end
-            if(i_Seq.AWVALID && o_seq.AWREADY)
+            if(i_seq.AWVALID && o_seq.AWREADY)
             begin
                 busy_wa = 0;
             end
@@ -65,7 +66,7 @@ class scoreboard extends uvm_scoreboard;
             begin
                 busy_wd = 1;
             end
-            if(i_Seq.WVALID && o_seq.WREADY)
+            if(i_seq.WVALID && o_seq.WREADY)
             begin
                 busy_wd = 0;
             end
@@ -96,7 +97,7 @@ class scoreboard extends uvm_scoreboard;
             begin
                 busy_rd = 1;
             end
-            if(o_seq.RVALID && i_seq.RREAD)
+            if(o_seq.RVALID && i_seq.RREADY)
             begin
                 busy_rd = 0;
                 first_rd = 0;
@@ -122,8 +123,8 @@ class scoreboard extends uvm_scoreboard;
             end
             if(busy_wd && !first_wd)
             begin
-                ref_var.WDATA = i_Seq.WDATA;
-                ref_va.WSTRB = i_seq.WSTRB;
+                ref_var.WDATA = i_seq.WDATA;
+                ref_var.WSTRB = i_seq.WSTRB;
                 first_wd = 1;
             end
             if(busy_wr && !first_wr)
@@ -144,7 +145,7 @@ class scoreboard extends uvm_scoreboard;
             begin
                 if(((ref_var.AWADDR%4)==0) && (ref_var.AWADDR inside {[0:39],[52:63]}))
                 begin
-                    mem[ref_var.AWADDR] = ({8{ref_var.WSTRB[3]},8{ref_var.WSTRB[2]},8{ref_var.WSTRB[1]},8{ref_var.WSTRB[0]}}) & (ref_var.WDATA);
+                    mem[ref_var.AWADDR] = ({{8{ref_var.WSTRB[3]}},{8{ref_var.WSTRB[2]}},{8{ref_var.WSTRB[1]}},{8{ref_var.WSTRB[0]}}}) & (ref_var.WDATA);
                     ref_var.BRESP = 0;
                     ref_var.BVALID = 1;
                 end
@@ -231,7 +232,7 @@ class scoreboard extends uvm_scoreboard;
         begin
             PASS++;  
             $display("-------------------PASS:[%0d]---------------------------",PASS);
-            `uvm_info(get_type_name(),$sformatf("[%0t]: INPUT: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d ARADDR=%0d ARVALID=%0d RREAD=%0d",$time,i_Seq.AWADDR,i_Seq.AWVALID,i_Seq.WDATA,i_Seq.WSTRB,i_Seq.WVALID,i_seq.ARADDR,i_seq.ARVALID,i_seq.RREAD),UVM_MEDIUM);
+            `uvm_info(get_type_name(),$sformatf("[%0t]: INPUT: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d ARADDR=%0d ARVALID=%0d RREAD=%0d",$time,i_seq.AWADDR,i_seq.AWVALID,i_seq.WDATA,i_seq.WSTRB,i_seq.WVALID,i_seq.ARADDR,i_seq.ARVALID,i_seq.RREADY),UVM_MEDIUM);
             `uvm_info(get_type_name(),$sformatf("[%0t]: REF: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,ref_var.BRESP,ref_var.RDATA,ref_var.RRESP),UVM_MEDIUM);
             `uvm_info(get_type_name(),$sformatf("[%0t]: DUT: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,o_seq.BRESP,o_seq.RDATA,o_seq.RRESP),UVM_MEDIUM);
             $display("");  
@@ -240,7 +241,7 @@ class scoreboard extends uvm_scoreboard;
         begin
             FAIL++;
             $display("-------------------FAIL:[%0d]---------------------------",FAIL);
-            `uvm_info(get_type_name(),$sformatf("[%0t]: INPUT: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d ARADDR=%0d ARVALID=%0d RREAD=%0d",$time,i_Seq.AWADDR,i_Seq.AWVALID,i_Seq.WDATA,i_Seq.WSTRB,i_Seq.WVALID,i_seq.ARADDR,i_seq.ARVALID,i_seq.RREAD),UVM_MEDIUM);
+            `uvm_info(get_type_name(),$sformatf("[%0t]: INPUT: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d ARADDR=%0d ARVALID=%0d RREAD=%0d",$time,i_seq.AWADDR,i_seq.AWVALID,i_seq.WDATA,i_seq.WSTRB,i_seq.WVALID,i_seq.ARADDR,i_seq.ARVALID,i_seq.RREADY),UVM_MEDIUM);
             `uvm_info(get_type_name(),$sformatf("[%0t]: REF: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,ref_var.BRESP,ref_var.RDATA,ref_var.RRESP),UVM_MEDIUM);
             `uvm_info(get_type_name(),$sformatf("[%0t]: DUT: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,o_seq.BRESP,o_seq.RDATA,o_seq.RRESP),UVM_MEDIUM);
             $display("");  

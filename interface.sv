@@ -41,12 +41,12 @@ interface axi_if(input clk,rst);
 
     clocking drv_cb @(posedge clk);
         default input #1 output #1;
-        output AWADDR,AWVALID,WDATA,WSTRB,BREADY,ARADDR,ARVALID,RREADY;
+        output AWADDR,AWVALID,WDATA,WSTRB,WVALID,BREADY,ARADDR,ARVALID,RREADY;
     endclocking 
 
     clocking ip_cb @(posedge clk);
         default input #1 output #1;
-        input AWADDR,AWVALID,WDATA,WSTRB,BREADY,ARADDR,ARVALID,RREADY;
+        input AWADDR,AWVALID,WDATA,WSTRB,WVALID,BREADY,ARADDR,ARVALID,RREADY;
     endclocking 
 
     clocking op_cb @(posedge clk);

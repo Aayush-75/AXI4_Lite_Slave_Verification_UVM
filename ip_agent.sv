@@ -12,7 +12,7 @@ class ip_agent extends uvm_agent;
     endfunction
 
     function void build_phase(uvm_phase phase);
-        if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
+        if(!uvm_config_db#(axi_config)::get(this,"","vif",cfg))
             `uvm_fatal(get_type_name(),"CONFIG FILE FETCH FAIL")
         if(cfg.ip_agent == UVM_ACTIVE)
         begin

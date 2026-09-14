@@ -13,7 +13,7 @@ class ip_mon extends uvm_monitor;
 
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
+        if(!uvm_config_db#(axi_config)::get(this,"","vif",cfg))
             `uvm_fatal(get_type_name(),"CONFIG FETCHING FAILED")
         ip_analysis_port = new("ip_analysis_port",this);
     endfunction
@@ -27,15 +27,17 @@ class ip_mon extends uvm_monitor;
         repeat(3) @(intrf.ip_cb);
         forever
         begin
-            seq = seq_item::create("seq");
-            seq.AWADDR = intrf.AWADDR;
-            seq.AWVALID = intrf.AWVALID;
-            seq.WDATA = intrf.WDATA;
-            seq.WSTRB = intrf.WSTRB;
-            seq.BREADY = intrf.BREADY;
-            seq.ARADDR = intrf.ARADDR;
-            seq.ARVALID = intrf.ARVALID;
-            seq.RREADY = intrf.RREADY;
+            seq = seq_item::type_id::create("seq");
+            seq.AWADDR = intrf.ip_cb.AWADDR;
+            seq.AWVALID = intrf.ip_cb.AWVALID;
+            seq.WDATA = intrf.ip_cb.WDATA;
+            seq.WSTRB = intrf.ip_cb.WSTRB;
+	    seq.WVALID = intrf.ip_cb.WVALID;
+            seq.BREADY = intrf.ip_cb.BREADY;
+            seq.ARADDR = intrf.ip_cb.ARADDR;
+            seq.ARVALID = intrf.ip_cb.ARVALID;
+            seq.RREADY = intrf.ip_cb.RREADY;
+	    ip_analysis_port.write(seq);
             @(intrf.ip_cb);
         end
     endtask

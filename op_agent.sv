@@ -10,7 +10,7 @@ class op_agent extends uvm_agent;
     endfunction
 
     function void build_phase(uvm_phase phase);
-        if(!uvm_config_db#(axi_config)::get(this,"","cfg",cfg))
+        if(!uvm_config_db#(axi_config)::get(this,"","vif",cfg))
             `uvm_fatal(get_type_name(),"CONFIG FILE FETCH FAIL")
         if(cfg.op_agent == UVM_PASSIVE)
             mon = op_mon::type_id::create("output_monitor",this);

@@ -16,7 +16,7 @@ class test extends uvm_test;
         if(!uvm_config_db#(virtual axi_if)::get(this,"","vif",my_config.intrf))
             `uvm_fatal(get_type_name(),"FAILED TO GET CONFIG FILE");
         env = environment::type_id::create("env",this);
-        my_config.in_agent = UVM_ACTIVE;
+        my_config.ip_agent = UVM_ACTIVE;
         my_config.op_agent = UVM_PASSIVE;
 	uvm_config_db#(axi_config)::set(this,"*","vif",my_config);
     endfunction
@@ -30,13 +30,13 @@ class test extends uvm_test;
         phase.raise_objection(this);
         seq_item::type_id::set_type_override(seq1::get_type());
 	    seq = my_sequence::type_id::create("seq");
-        repeat(50) seq.start(env.ia.sqr);
+        repeat(100) seq.start(env.ia.sqr);
         seq_item::type_id::set_type_override(seq2::get_type());
-        repeat(50) seq.start(env.ia.sqr);
+        //repeat(50) seq.start(env.ia.sqr);
         seq_item::type_id::set_type_override(seq1::get_type());
-        repeat(50) seq.start(env.ia.sqr);
+        //repeat(50) seq.start(env.ia.sqr);
         seq_item::type_id::set_type_override(seq3::get_type());
-        repeat(50) seq.start(env.ia.sqr);
+        //repeat(50) seq.start(env.ia.sqr);
 	    #30ns;
         phase.drop_objection(this);
     endtask

@@ -27,7 +27,7 @@ class my_driver extends uvm_driver#(seq_item);
         begin
             seq_item_port.get_next_item(req);
             drive();
-            seq_item_port.finish_item();
+            seq_item_port.item_done();
             //write address
             if(intrf.AWVALID)
                 begin
@@ -80,14 +80,15 @@ class my_driver extends uvm_driver#(seq_item);
     endtask    
 
     task drive();
-        intrf.AWADDR <= seq.AWADDR;
-        intrf.AWVALID <= seq.AWVALID;
-        intrf.WDATA <= seq.WDATA;
-        intrf.WSTRB <= seq.WSTRB;
-        intrf.BREADY <= seq.BREADY;
-        intrf.ARADDR <= seq.ARADDR;
-        intrf.ARVALID <= seq.ARVALID;
-        intrf.RREADY <= seq.RREADY;
+        intrf.AWADDR <= req.AWADDR;
+        intrf.AWVALID <= req.AWVALID;
+        intrf.WDATA <= req.WDATA;
+        intrf.WSTRB <= req.WSTRB;
+	intrf.WVALID <= req.WVALID;
+        intrf.BREADY <= req.BREADY;
+        intrf.ARADDR <= req.ARADDR;
+        intrf.ARVALID <= req.ARVALID;
+        intrf.RREADY <= req.RREADY;
     endtask
 
 endclass
