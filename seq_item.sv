@@ -57,42 +57,37 @@ class seq1 extends seq_item;
 
     endfunction
 
-//    constraint c
-//	{
-//		solve AWVALID,WVALID,RREADY,BREADY,ARVALID before AWADDR,WDATA,WSTRB,ARADDR;
-//	}
-
     constraint c1  //for write channel
     {
 	AWADDR == 4;
 	ARADDR == 4;
-	AWVALID == 1;
+	//AWVALID == 1;
 	WDATA == 100;
 	WSTRB == 4'b1111;
-	WVALID == 1;	
+	//WVALID == 1;	
 	BREADY == 1;
-	ARVALID == 0;
+	//ARVALID == 0;
 	RREADY == 1;
 	
      	   //write channel constraint
-        //AWVALID dist
-        //{
-        //    0 := 9,
-        //    1 := 1
-        //};
-        //WVALID dist
-        //{
-        //    0 := 13,
-        //    1 := 1
-        //};
+        AWVALID dist
+        {
+            0 := 9,
+            1 := 1
+        };
+        WVALID dist
+        {
+            0 := 13,
+            1 := 1
+        };
         //after this wait for BVALID in driver and when BVALID comes send BREADY 
 
         //read channel constraint 
-        //ARVALID dist
-        //{
-        //    0 := 5,
-        //    1 := 1
-        //};
+        ARVALID dist
+        {
+            0 := 5,
+            1 := 1
+        };
         //after this wait for RVALID in driver and when RVALID comes send RREADY
     }
 endclass

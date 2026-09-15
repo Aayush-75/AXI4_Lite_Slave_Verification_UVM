@@ -27,7 +27,7 @@ class my_driver extends uvm_driver#(seq_item);
         begin
             seq_item_port.get_next_item(req);
             drive();
-            req();
+            req_update();
             seq_item_port.item_done(req);
             // //write address
             // if(intrf.AWVALID)
@@ -110,7 +110,7 @@ class my_driver extends uvm_driver#(seq_item);
         intrf.RREADY <= req.RREADY;
     endtask
 
-    task req();
+    task req_update();
         req.AWREADY <= intrf.AWREADY;
         req.WREADY <= intrf.WREADY;
         req.BRESP <= intrf.BRESP;
