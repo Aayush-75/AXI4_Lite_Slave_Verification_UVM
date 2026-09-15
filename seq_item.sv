@@ -59,23 +59,23 @@ class seq1 extends seq_item;
 
     constraint c1  //for write channel
     {
-	AWADDR == 4;
-	ARADDR == 4;
+	soft AWADDR == 4;
+	soft ARADDR == 4;
 	//AWVALID == 1;
-	WDATA == 100;
-	WSTRB == 4'b1111;
+	soft WDATA == 100;
+	soft WSTRB == 4'b1111;
 	//WVALID == 1;	
-	BREADY == 1;
+	soft BREADY == 1;
 	//ARVALID == 0;
-	RREADY == 1;
+	soft RREADY == 1;
 	
      	   //write channel constraint
-        AWVALID dist
+        soft AWVALID dist
         {
             0 := 9,
             1 := 1
         };
-        WVALID dist
+        soft WVALID dist
         {
             0 := 13,
             1 := 1
@@ -83,7 +83,7 @@ class seq1 extends seq_item;
         //after this wait for BVALID in driver and when BVALID comes send BREADY 
 
         //read channel constraint 
-        ARVALID dist
+        soft ARVALID dist
         {
             0 := 5,
             1 := 1
