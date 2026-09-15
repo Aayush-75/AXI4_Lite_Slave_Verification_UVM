@@ -19,20 +19,20 @@ class my_sequence extends uvm_sequence#(seq_item);
         req = seq_item::type_id::create("req");
         start_item(req);
 		if(a_awaddr)
-			req.randomize(req.AWADDR);
+			req.randomize(AWADDR);
 		if(a_awvalid)
-			req.randomize(req.AWVALID);
+			req.randomize(AWVALID);
 		if(a_wdata)
-			req.randomize(req.WDATA);
+			req.randomize(WDATA);
 		if(a_wstrb)
-			req.randomize(req.WSTRB);
+			req.randomize(WSTRB);
 		if(a_wvalid)
-			req.randomize(req.WVALID);
+			req.randomize(WVALID);
 		if(a_araddr)
-			req.randomize(req.ARADDR);
+			req.randomize(ARADDR);
 		if(a_arvalid)
-			req.randomize(req.ARVALID);
-        req.randomize(req.BREADY,req.RREADY);
+			req.randomize(ARVALID);
+        req.randomize(BREADY,RREADY);
         finish_item(req);
 		
 		if(req.AWVALID)

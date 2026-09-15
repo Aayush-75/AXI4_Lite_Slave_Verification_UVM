@@ -103,7 +103,7 @@ class my_driver extends uvm_driver#(seq_item);
         intrf.AWVALID <= req.AWVALID;
         intrf.WDATA <= req.WDATA;
         intrf.WSTRB <= req.WSTRB;
-	    intrf.WVALID <= req.WVALID;
+	intrf.WVALID <= req.WVALID;
         intrf.BREADY <= req.BREADY;
         intrf.ARADDR <= req.ARADDR;
         intrf.ARVALID <= req.ARVALID;
