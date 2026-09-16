@@ -61,8 +61,8 @@ class seq1 extends seq_item;
     {
 	//soft (AWADDR%4) == 0;
 	//soft (ARADDR%4) == 0;
-	soft AWADDR inside {8,10};
-	soft ARADDR inside {8,10};
+	soft AWADDR inside {8,10,12,16,18};
+	soft ARADDR inside {8,10,12,16,18};
 	//soft AWADDR inside {[0:63]};
 	//soft ARADDR inside {[0:63]};
 	//AWVALID == 1;
@@ -75,16 +75,16 @@ class seq1 extends seq_item;
 	//soft AWVALID != WVALID;
 	
      	   //write channel constraint
-        //soft AWVALID dist
-        //{
-        //    0 := 2,
-        //    1 := 1
-        //};
-        //soft WVALID dist
-        //{
-        //    0 := 3,
-        //    1 := 1
-        //};
+        soft AWVALID dist
+        {
+            0 := 2,
+            1 := 1
+        };
+        soft WVALID dist
+        {
+            0 := 3,
+            1 := 1
+        };
         //after this wait for BVALID in driver and when BVALID comes send BREADY 
 
         //read channel constraint 
