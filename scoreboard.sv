@@ -124,33 +124,47 @@ class scoreboard extends uvm_scoreboard;
                 busy_wd = 0;
             end
 
-            if(first_wa && first_wd)
+            if(first_wa && first_wd && busy_wa==0 &&& busy_wd==0)
             begin
                 if(((ref_var.AWADDR%4)==0) && (ref_var.AWADDR inside {[0:39],[52:63]}))
                 begin
                     mem[ref_var.AWADDR] = ({{8{ref_var.WSTRB[3]}},{8{ref_var.WSTRB[2]}},{8{ref_var.WSTRB[1]}},{8{ref_var.WSTRB[0]}}}) & (ref_var.WDATA);
-                    ref_var.BRESP = 0;
-                    ref_var.BVALID = 1;
+                    // ref_var.BRESP = 0;
+                    // ref_var.BVALID = 1;
                 end
-                else if(!(ref_var.AWADDR inside {[0:63]}))
-                begin
-                    ref_var.BRESP = 3;
-                    ref_var.BVALID = 1;
-                end
-                else
-                begin
-                    ref_var.BRESP = 2;
-                    ref_var.BVALID = 1;
-                end
+                // else if(!(ref_var.AWADDR inside {[0:63]}))
+                // begin
+                //     ref_var.BRESP = 3;
+                //     ref_var.BVALID = 1;
+                // end
+                // else
+                // begin
+                //     ref_var.BRESP = 2;
+                //     ref_var.BVALID = 1;
+                // end
             end
 
-            if(o_seq.BVALID)
+            if(o_seq.BVALID && first_wa && first_wd)
             begin
                 busy_wr = 1;
+                if(((ref_var.AWADDR%4)==0) && (ref_var.AWADDR inside {[0:39],[52:63]}))
+                    begin
+                        ref_var.BRESP = 0;
+                        //ref_var.BVALID = 1;
+                    end
+                else if(!(ref_var.AWADDR inside {[0:63]}))
+                    begin
+                        ref_var.BRESP = 3;
+                        //ref_var.BVALID = 1;
+                    end
+                else
+                    begin
+                        ref_var.BRESP = 2;
+                        //ref_var.BVALID = 1;
+                    end
             end
             if(busy_wr && !first_wr)
             begin
-                ref_var.BRESP = i_seq.BRESP;
                 first_wr = 1;
             end
             if(o_seq.BVALID && i_seq.BREADY)
