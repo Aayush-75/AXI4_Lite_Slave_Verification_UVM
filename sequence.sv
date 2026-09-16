@@ -60,7 +60,7 @@ class my_sequence extends uvm_sequence#(seq_item);
 		begin
 			a_wdata=1;
             		a_wstrb=1;
-            i		a_wvalid=1;
+            		a_wvalid=1;
 		end
 		if(req.ARVALID)
 		begin
