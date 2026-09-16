@@ -60,8 +60,9 @@ class scoreboard extends uvm_scoreboard;
             end
             if(busy_ra && !first_ra)
             begin
-                ref_var.ARADDR = i_seq.ARADDR;
+		$display("first_Ra=%0d Busy_ra=%0d",first_ra,busy_ra);
 		$display("%0t got address %0d",$time,i_seq.ARADDR);
+                ref_var.ARADDR = i_seq.ARADDR;
                 first_ra = 1;
             end
             if(i_seq.ARVALID && o_seq.ARREADY)
