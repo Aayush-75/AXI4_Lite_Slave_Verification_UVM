@@ -51,42 +51,15 @@ class scoreboard extends uvm_scoreboard;
     endtask
 
     task ref_task();
-            //logic for channel status
-            //write
-            if(i_seq.AWVALID)
-            begin
-                busy_wa = 1;
-            end
-            if(i_seq.AWVALID && o_seq.AWREADY)
-            begin
-                busy_wa = 0;
-            end
-
-            if(i_seq.WVALID)
-            begin
-                busy_wd = 1;
-            end
-            if(i_seq.WVALID && o_seq.WREADY)
-            begin
-                busy_wd = 0;
-            end
-
-            if(o_seq.BVALID)
-            begin
-                busy_wr = 1;
-            end
-            if(o_seq.BVALID && i_seq.BREADY)
-            begin
-                busy_wr = 0;
-                first_wr = 0;
-                first_wa = 0;
-                first_wd = 0;
-            end
-
             //read
             if(i_seq.ARVALID)
             begin
                 busy_ra = 1;
+            end
+            if(busy_ra && !first_ra)
+            begin
+                ref_var.ARADDR = i_seq.ARADDR;
+                first_ra = 1;
             end
             if(i_seq.ARVALID && o_seq.ARREADY)
             begin
@@ -99,27 +72,46 @@ class scoreboard extends uvm_scoreboard;
             end
             if(o_seq.RVALID && i_seq.RREADY)
             begin
+                if(first_ra)
+                begin
+                    if(((ref_var.ARADDR%4)==0) && (ref_var.ARADDR inside {[0:47],[60:63]}))
+                        begin
+                            ref_var.RDATA = mem[ref_var.ARADDR];
+                            ref_var.RRESP = 0;
+                        end
+                    else if(!(ref_var.ARADDR inside {[0:63]}))
+                        begin
+                            ref_var.RRESP = 3;
+                        end
+                    else
+                        begin
+                            ref_var.RRESP = 2;
+                        end
+                end
                 busy_rd = 0;
                 first_rd = 0;
                 first_ra = 0;
             end
-            // if(i_seq.AWVALID && o_seq.AWREADY)
-            // begin
-            //     add = i_seq.AWADDR;
-            // end
-            // if(i_seq.WVALID && o_seq.WREADY)
-            // begin
-            //     strb_mask = {8{i_seq.WSTRB[3]},8{i_seq.WSTRB[2]},8{i_seq.WSTRB[1]},8{i_seq.WSTRB[0]}};
-            //     data = (strb_mask) & (i_seq.WDATA);
-            // end
-            
 
-            //logic for internal register updating
-            //write channel
+
+            //write
+            if(i_seq.AWVALID)
+            begin
+                busy_wa = 1;
+            end
             if(busy_wa && !first_wa)
             begin
                 ref_var.AWADDR = i_seq.AWADDR;
                 first_wa = 1;
+            end
+            if(i_seq.AWVALID && o_seq.AWREADY)
+            begin
+                busy_wa = 0;
+            end
+
+            if(i_seq.WVALID)
+            begin
+                busy_wd = 1;
             end
             if(busy_wd && !first_wd)
             begin
@@ -127,20 +119,11 @@ class scoreboard extends uvm_scoreboard;
                 ref_var.WSTRB = i_seq.WSTRB;
                 first_wd = 1;
             end
-            if(busy_wr && !first_wr)
+            if(i_seq.WVALID && o_seq.WREADY)
             begin
-                ref_var.BRESP = i_seq.BRESP;
-                first_wr = 1;
-            end
-            //read channel
-            if(busy_ra && !first_ra)
-            begin
-                ref_var.ARADDR = i_seq.ARADDR;
-                first_ra = 1;
+                busy_wd = 0;
             end
 
-            //error logic
-            //write channel
             if(first_wa && first_wd)
             begin
                 if(((ref_var.AWADDR%4)==0) && (ref_var.AWADDR inside {[0:39],[52:63]}))
@@ -160,26 +143,22 @@ class scoreboard extends uvm_scoreboard;
                     ref_var.BVALID = 1;
                 end
             end
-            //read channel
-            if(first_ra)
+
+            if(o_seq.BVALID)
             begin
-                ref_var.ARADDR = i_seq.ARADDR;
-                if(o_seq.RVALID)
-                begin
-                    if(((ref_var.ARADDR%4)==0) && (ref_var.ARADDR inside {[0:47],[60:63]}))
-                    begin
-                        ref_var.RDATA = mem[ref_var.ARADDR];
-                        ref_var.RRESP = 0;
-                    end
-                    else if(!(ref_var.ARADDR inside {[0:63]}))
-                    begin
-                        ref_var.RRESP = 3;
-                    end
-                    else
-                    begin
-                        ref_var.RRESP = 2;
-                    end
-                end
+                busy_wr = 1;
+            end
+            if(busy_wr && !first_wr)
+            begin
+                ref_var.BRESP = i_seq.BRESP;
+                first_wr = 1;
+            end
+            if(o_seq.BVALID && i_seq.BREADY)
+            begin
+                busy_wr = 0;
+                first_wr = 0;
+                first_wa = 0;
+                first_wd = 0;
             end
     endtask
 
