@@ -22,20 +22,28 @@ class my_sequence extends uvm_sequence#(seq_item);
         start_item(req);
 		if(a_awaddr)
 			req.randomize(AWADDR); //with {AWADDR==seq.AWADDR;};
+		else
+			req.randomize(AWADDR) with {AWADDR==seq.AWADDR;};
 		if(a_awvalid)
 			req.randomize(AWVALID);
 		else
 			req.randomize(AWVALID) with {AWVALID==1;};
 		if(a_wdata)
 			req.randomize(WDATA); //with {WDATA==seq.WDATA;};
+		else	
+			req.randomize(WDATA) with {WDATA==seq.WDATA;};
 		if(a_wstrb)
 			req.randomize(WSTRB); //with {WSTRB==seq.WSTRB;};
+		else
+			req.randomize(WSTRB) with {WSTRB==seq.WSTRB;};
 		if(a_wvalid)
 			req.randomize(WVALID);
 		else
 			req.randomize(WVALID) with {WVALID==1;};
 		if(a_araddr)
 			req.randomize(ARADDR); //with {ARADDR==seq.ARADDR;};
+		else	
+			req.randomize(ARADDR) with {ARADDR==seq.ARADDR;};
 		if(a_arvalid)
 			req.randomize(ARVALID);
 		else
@@ -43,11 +51,12 @@ class my_sequence extends uvm_sequence#(seq_item);
         req.randomize(BREADY,RREADY);
 	finish_item(req);
 	`uvm_info(get_type_name(),$sformatf("[%0t]: awaddr=%0d awvalid=%0d wdata=%0d wstrb=%0d wvalid=%0d araddr=%0d arvalid=%0d",$time,a_awaddr,a_awvalid,a_wdata,a_wstrb,a_wvalid,a_araddr,a_arvalid),UVM_MEDIUM);
-	//`uvm_info(get_type_name(),$sformatf("[%0t]: AWREADY=%0d WREADY=%0d BRESP=%0d BVALID=%0d ARREADY=%0d RDATA=%0d RRESP=%0d RVALID=%0d",$time,req.AWREADY,req.WREADY,req.BRESP,req.BVALID,req.ARREADY,req.RDATA,req.RRESP,req.RVALID),UVM_MEDIUM); 	
+	`uvm_info(get_type_name(),$sformatf("[%0t]: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d BREADY=%0d ARADDR=%0d ARVALID=%0d RREADY=%0d",$time,seq.AWADDR,seq.AWVALID,seq.WDATA,seq.WSTRB,seq.WVALID,seq.BREADY, seq.ARADDR,seq.ARVALID,seq.RREADY),UVM_MEDIUM);	
+	`uvm_info(get_type_name(),$sformatf("[%0t]: AWREADY=%0d WREADY=%0d BRESP=%0d BVALID=%0d ARREADY=%0d RDATA=%0d RRESP=%0d RVALID=%0d",$time,req.AWREADY,req.WREADY,req.BRESP,req.BVALID,req.ARREADY,req.RDATA,req.RRESP,req.RVALID),UVM_MEDIUM); 	
 		if(req.AWVALID)
 		begin
 			a_awaddr=0;
-			//seq.AWADDR=req.AWADDR;
+			seq.AWADDR=req.AWADDR;
             		a_awvalid=0;	
 		end
 		if(!a_awvalid && req.AWREADY)
@@ -60,8 +69,8 @@ class my_sequence extends uvm_sequence#(seq_item);
 			a_wdata=0;
             		a_wstrb=0;
             		a_wvalid=0;
-			//seq.WDATA=req.WDATA;
-			//seq.WSTRB=req.WSTRB;
+			seq.WDATA=req.WDATA;
+			seq.WSTRB=req.WSTRB;
 		end
 		if(!a_wvalid && req.WREADY)
 		begin
@@ -73,7 +82,7 @@ class my_sequence extends uvm_sequence#(seq_item);
 		begin
 			a_araddr=0;
             		a_arvalid=0;
-			//seq.ARADDR=req.ARADDR;
+			seq.ARADDR=req.ARADDR;
 		end
 		if(!a_arvalid && req.ARREADY)
 		begin

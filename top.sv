@@ -56,5 +56,9 @@ module top;
 	    uvm_config_db#(virtual axi_if)::set(null,"*","vif",DUV_IF);
 	    run_test("test");
 	end	
-    
+ 	initial begin
+		    $fsdbDumpfile("wave.fsdb");
+		    $fsdbDumpvars(0, top);
+	end
+   
 endmodule

@@ -61,10 +61,10 @@ class seq1 extends seq_item;
     {
 	//soft (AWADDR%4) == 0;
 	//soft (ARADDR%4) == 0;
-	soft AWADDR == 4;
-	soft ARADDR == 4;
-	soft AWADDR inside {[0:63]};
-	soft ARADDR inside {[0:63]};
+	soft AWADDR inside {8,10};
+	soft ARADDR inside {8,10};
+	//soft AWADDR inside {[0:63]};
+	//soft ARADDR inside {[0:63]};
 	//AWVALID == 1;
 	//soft WDATA == 100;
 	soft WSTRB == 4'b1111;
