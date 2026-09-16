@@ -62,7 +62,7 @@ class seq1 extends seq_item;
 	//soft (AWADDR%4) == 0;
 	//soft (ARADDR%4) == 0;
 	soft AWADDR inside {8,10,12,16,18};
-	soft ARADDR inside {8,10,12,16,18};
+	soft ARADDR inside {10,18};
 	//soft AWADDR inside {[0:63]};
 	//soft ARADDR inside {[0:63]};
 	//AWVALID == 1;

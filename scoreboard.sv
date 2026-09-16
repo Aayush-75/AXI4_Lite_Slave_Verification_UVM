@@ -52,6 +52,8 @@ class scoreboard extends uvm_scoreboard;
 
     task ref_task();
             //read
+	    $display("ARVALID=%0d ARREADY=%0d",i_seq.ARVALID,o_seq.AREADY);
+	    $display("RVALID%0d RREADY%0d",o_Seq.RVALID,i_seq.ARREADY);
             if(i_seq.ARVALID)
             begin
                 busy_ra = 1;
@@ -59,18 +61,23 @@ class scoreboard extends uvm_scoreboard;
             if(busy_ra && !first_ra)
             begin
                 ref_var.ARADDR = i_seq.ARADDR;
+		$display("%0t got address %0d",$time,i_seq.ARADDR);
                 first_ra = 1;
             end
             if(i_seq.ARVALID && o_seq.ARREADY)
             begin
                 busy_ra = 0;
+		$display("Channel Free");
             end
 
             if(o_seq.RVALID)
             begin
+		$display("Inside 5th channel");
+		$display("first_Ra=%0d Busy_ra=%0d",first_ra,busy_ra);
                 busy_rd = 1;
-                if(first_ra)
+                if(first_ra && busy_ra==0)
                 begin
+		    $display("Figuring out resp");
                     if(((ref_var.ARADDR%4)==0) && (ref_var.ARADDR inside {[0:47],[60:63]}))
                         begin
                             ref_var.RDATA = mem[ref_var.ARADDR];
