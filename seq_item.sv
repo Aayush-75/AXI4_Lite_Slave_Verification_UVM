@@ -59,8 +59,10 @@ class seq1 extends seq_item;
 
     constraint c1  //for write channel
     {
-	soft (AWADDR%4) == 0;
-	soft (ARADDR%4) == 0;
+	//soft (AWADDR%4) == 0;
+	//soft (ARADDR%4) == 0;
+	soft AWADDR == 4;
+	soft ARADDR == 4;
 	soft AWADDR inside {[0:63]};
 	soft ARADDR inside {[0:63]};
 	//AWVALID == 1;
@@ -70,7 +72,7 @@ class seq1 extends seq_item;
 	//soft BREADY == 1;
 	//ARVALID == 0;
 	//soft RREADY == 1;
-	soft AWVALID != WVALID;
+	//soft AWVALID != WVALID;
 	
      	   //write channel constraint
         //soft AWVALID dist

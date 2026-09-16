@@ -24,16 +24,22 @@ class my_sequence extends uvm_sequence#(seq_item);
 			req.randomize(AWADDR); //with {AWADDR==seq.AWADDR;};
 		if(a_awvalid)
 			req.randomize(AWVALID);
+		else
+			req.randomize(AWVALID) with {AWVALID==1;};
 		if(a_wdata)
 			req.randomize(WDATA); //with {WDATA==seq.WDATA;};
 		if(a_wstrb)
 			req.randomize(WSTRB); //with {WSTRB==seq.WSTRB;};
 		if(a_wvalid)
 			req.randomize(WVALID);
+		else
+			req.randomize(WVALID) with {WVALID==1;};
 		if(a_araddr)
 			req.randomize(ARADDR); //with {ARADDR==seq.ARADDR;};
 		if(a_arvalid)
 			req.randomize(ARVALID);
+		else
+			req.randomize(ARVALID) with {ARVALID==1;};
         req.randomize(BREADY,RREADY);
 	finish_item(req);
 	`uvm_info(get_type_name(),$sformatf("[%0t]: awaddr=%0d awvalid=%0d wdata=%0d wstrb=%0d wvalid=%0d araddr=%0d arvalid=%0d",$time,a_awaddr,a_awvalid,a_wdata,a_wstrb,a_wvalid,a_araddr,a_arvalid),UVM_MEDIUM);
