@@ -52,8 +52,8 @@ class scoreboard extends uvm_scoreboard;
 
     task ref_task();
             //read
-	    $display("ARVALID=%0d ARREADY=%0d",i_seq.ARVALID,o_seq.AREADY);
-	    $display("RVALID%0d RREADY%0d",o_Seq.RVALID,i_seq.ARREADY);
+	    //$display("ARVALID=%0d ARREADY=%0d",i_seq.ARVALID,o_seq.ARREADY);
+	    //$display("RVALID%0d RREADY%0d",o_seq.RVALID,i_seq.RREADY);
             if(i_seq.ARVALID)
             begin
                 busy_ra = 1;
@@ -237,8 +237,8 @@ class scoreboard extends uvm_scoreboard;
 	    //`uvm_info(get_type_name(),$sformatf("AWVALID=%0d AWREADY=%0d AWADDR=%0d",i_seq.AWVALID,o_seq.AWREADY,i_seq.AWADDR),UVM_MEDIUM);
 	    //`uvm_info(get_type_name(),$sformatf("WVALID =%0d WREADY =%0d WDATA=%0d WSTRB=%0d",i_seq.WVALID,o_seq.WREADY,i_seq.WDATA,i_seq.WSTRB),UVM_MEDIUM);
 	    //`uvm_info(get_type_name(),$sformatf("BVALID =%0d BREADY =%0d",o_seq.BVALID,i_seq.BREADY),UVM_MEDIUM);
-	    //`uvm_info(get_type_name(),$sformatf("ARVALID=%0d ARREADY=%0d ARADDR=%0d",i_seq.ARVALID,o_seq.ARREADY,i_seq.ARADDR),UVM_MEDIUM);
-	    //`uvm_info(get_type_name(),$sformatf("RVALID =%0d RREADY =%0d",o_seq.RVALID,i_seq.RREADY),UVM_MEDIUM);            
+	    `uvm_info(get_type_name(),$sformatf("ARVALID=%0d ARREADY=%0d ARADDR=%0d",i_seq.ARVALID,o_seq.ARREADY,i_seq.ARADDR),UVM_MEDIUM);
+	    `uvm_info(get_type_name(),$sformatf("RVALID =%0d RREADY =%0d",o_seq.RVALID,i_seq.RREADY),UVM_MEDIUM);            
 	    `uvm_info(get_type_name(),$sformatf("[%0t]: REF: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,ref_var.BRESP,ref_var.RDATA,ref_var.RRESP),UVM_MEDIUM);
             `uvm_info(get_type_name(),$sformatf("[%0t]: DUT: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,o_seq.BRESP,o_seq.RDATA,o_seq.RRESP),UVM_MEDIUM);
             $display("");  
@@ -252,8 +252,8 @@ class scoreboard extends uvm_scoreboard;
 	    //`uvm_info(get_type_name(),$sformatf("AWVALID=%0d AWREADY=%0d AWADDR=%0d",i_seq.AWVALID,o_seq.AWREADY,i_seq.AWADDR),UVM_MEDIUM);
 	    //`uvm_info(get_type_name(),$sformatf("WVALID =%0d WREADY =%0d WDATA=%0d WSTRB=%0d",i_seq.WVALID,o_seq.WREADY,i_seq.WDATA,i_seq.WSTRB),UVM_MEDIUM);
 	    //`uvm_info(get_type_name(),$sformatf("BVALID =%0d BREADY =%0d",o_seq.BVALID,i_seq.BREADY),UVM_MEDIUM);
-	    //`uvm_info(get_type_name(),$sformatf("ARVALID=%0d ARREADY=%0d ARADDR=%0d",i_seq.ARVALID,o_seq.ARREADY,i_seq.ARADDR),UVM_MEDIUM);
-	    //`uvm_info(get_type_name(),$sformatf("RVALID =%0d RREADY =%0d",o_seq.RVALID,i_seq.RREADY),UVM_MEDIUM);            
+	    `uvm_info(get_type_name(),$sformatf("ARVALID=%0d ARREADY=%0d ARADDR=%0d",i_seq.ARVALID,o_seq.ARREADY,i_seq.ARADDR),UVM_MEDIUM);
+	    `uvm_info(get_type_name(),$sformatf("RVALID =%0d RREADY =%0d",o_seq.RVALID,i_seq.RREADY),UVM_MEDIUM);            
 	    `uvm_info(get_type_name(),$sformatf("[%0t]: REF: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,ref_var.BRESP,ref_var.RDATA,ref_var.RRESP),UVM_MEDIUM);
             `uvm_info(get_type_name(),$sformatf("[%0t]: DUT: WRITE_RESPONSE=%0d READ_DATA=%0d READ_RESPONSE=%0d",$time,o_seq.BRESP,o_seq.RDATA,o_seq.RRESP),UVM_MEDIUM);
             $display("");  
