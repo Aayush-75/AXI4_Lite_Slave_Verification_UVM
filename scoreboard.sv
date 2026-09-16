@@ -94,7 +94,7 @@ class scoreboard extends uvm_scoreboard;
                         end
                 end
             end
-            if(o_seq.RVALID && i_seq.RREADY)
+            if(o_seq.RVALID && i_seq.RREADY && first_ra && busy_ra==0)
             begin
                 busy_rd = 0;
                 first_rd = 0;
