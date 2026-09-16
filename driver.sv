@@ -111,14 +111,14 @@ class my_driver extends uvm_driver#(seq_item);
     endtask
 
     task req_update();
-        req.AWREADY <= intrf.AWREADY;
-        req.WREADY <= intrf.WREADY;
-        req.BRESP <= intrf.BRESP;
-        req.BVALID <= intrf.BVALID;
-        req.ARREADY <= intrf.ARREADY;
-        req.RDATA <= intrf.RDATA;
-        req.RRESP <= intrf.RRESP;
-        req.RVALID <= intrf.RVALID;
+        req.AWREADY = intrf.AWREADY;
+        req.WREADY = intrf.WREADY;
+        req.BRESP = intrf.BRESP;
+        req.BVALID = intrf.BVALID;
+        req.ARREADY = intrf.ARREADY;
+        req.RDATA = intrf.RDATA;
+        req.RRESP = intrf.RRESP;
+        req.RVALID = intrf.RVALID;
     endtask
 
 endclass

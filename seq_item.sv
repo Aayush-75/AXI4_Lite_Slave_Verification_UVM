@@ -59,35 +59,38 @@ class seq1 extends seq_item;
 
     constraint c1  //for write channel
     {
-	soft AWADDR == 4;
-	soft ARADDR == 4;
+	soft (AWADDR%4) == 0;
+	soft (ARADDR%4) == 0;
+	soft AWADDR inside {[0:63]};
+	soft ARADDR inside {[0:63]};
 	//AWVALID == 1;
-	soft WDATA == 100;
-	soft WSTRB == 4'b1111;
+	//soft WDATA == 100;
+	//soft WSTRB == 4'b1111;
 	//WVALID == 1;	
-	soft BREADY == 1;
+	//soft BREADY == 1;
 	//ARVALID == 0;
-	soft RREADY == 1;
+	//soft RREADY == 1;
+	soft AWVALID != WVALID;
 	
      	   //write channel constraint
-        soft AWVALID dist
-        {
-            0 := 9,
-            1 := 1
-        };
-        soft WVALID dist
-        {
-            0 := 13,
-            1 := 1
-        };
+        //soft AWVALID dist
+        //{
+        //    0 := 2,
+        //    1 := 1
+        //};
+        //soft WVALID dist
+        //{
+        //    0 := 3,
+        //    1 := 1
+        //};
         //after this wait for BVALID in driver and when BVALID comes send BREADY 
 
         //read channel constraint 
-        soft ARVALID dist
-        {
-            0 := 5,
-            1 := 1
-        };
+        //soft ARVALID dist
+        //{
+        //    0 := 2,
+        //    1 := 1
+        //};
         //after this wait for RVALID in driver and when RVALID comes send RREADY
     }
 endclass
@@ -103,33 +106,33 @@ class seq2 extends seq_item;
     constraint c1  //for write channel
     {
         //write channel constraint
-	AWADDR == 4;
-	ARADDR == 4;
-	AWVALID == 0;
-	WDATA == 100;
-	WSTRB == 4'b1111;
-	WVALID == 1;	
-	BREADY == 1;
-	ARVALID == 1;
-	RREADY == 1;
-        //AWVALID dist
-        //{
-        //    0 := 13,
-        //    1 := 1
-        //};
-        //WVALID dist
-        //{
-        //    0 := 9,
-        //    1 := 1
-        //};
+	soft AWADDR == 4;
+	soft ARADDR == 4;
+	//soft AWVALID == 0;
+	soft WDATA == 100;
+	soft WSTRB == 4'b1111;
+	//soft WVALID == 1;	
+	soft BREADY == 1;
+	//soft ARVALID == 1;
+	soft RREADY == 1;
+        soft AWVALID dist
+        {
+            0 := 13,
+            1 := 1
+        };
+        soft WVALID dist
+        {
+            0 := 9,
+            1 := 1
+        };
         //after this wait for BVALID in driver and when BVALID comes send BREADY 
 
         //read channel constraint 
-        //ARVALID dist
-        //{
-        //    0 := 13,
-        //    1 := 1
-        //};
+        soft ARVALID dist
+        {
+            0 := 13,
+            1 := 1
+        };
         //after this wait for RVALID in driver and when RVALID comes send RREADY
     }
 endclass

@@ -30,6 +30,7 @@ class op_mon extends uvm_monitor;
             seq = seq_item::type_id::create("seq");
             seq.AWREADY = intrf.op_cb.AWREADY;
             seq.WREADY = intrf.op_cb.WREADY;
+            //`uvm_info(get_type_name(),$sformatf("[%0t]: DUT: AWREADY=%0d AWREADY=%0d",$time,intrf.op_cb.AWREADY,seq.AWREADY),UVM_MEDIUM);
             seq.BRESP = intrf.op_cb.BRESP;
             seq.BVALID = intrf.op_cb.BVALID;
             seq.ARREADY = intrf.op_cb.ARREADY;

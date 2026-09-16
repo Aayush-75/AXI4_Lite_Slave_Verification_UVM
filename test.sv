@@ -30,7 +30,7 @@ class test extends uvm_test;
         phase.raise_objection(this);
         seq = my_sequence::type_id::create("seq");
         seq_item::type_id::set_type_override(seq1::get_type());
-        repeat(100) seq.start(env.ia.sqr);
+        repeat(200) seq.start(env.ia.sqr);
         //seq_item::type_id::set_type_override(seq2::get_type());
         //repeat(100) seq.start(env.ia.sqr);
         //seq_item::type_id::set_type_override(seq1::get_type());
