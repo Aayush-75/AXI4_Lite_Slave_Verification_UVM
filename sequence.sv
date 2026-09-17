@@ -50,9 +50,9 @@ class my_sequence extends uvm_sequence#(seq_item);
 			req.randomize(ARVALID) with {ARVALID==1;};
         req.randomize(BREADY,RREADY);
 	finish_item(req);
-	`uvm_info(get_type_name(),$sformatf("[%0t]: awaddr=%0d awvalid=%0d wdata=%0d wstrb=%0d wvalid=%0d araddr=%0d arvalid=%0d",$time,a_awaddr,a_awvalid,a_wdata,a_wstrb,a_wvalid,a_araddr,a_arvalid),UVM_MEDIUM);
-	`uvm_info(get_type_name(),$sformatf("[%0t]: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d BREADY=%0d ARADDR=%0d ARVALID=%0d RREADY=%0d",$time,req.AWADDR,req.AWVALID,req.WDATA,req.WSTRB,req.WVALID,req.BREADY, req.ARADDR,req.ARVALID,req.RREADY),UVM_MEDIUM);	
-	`uvm_info(get_type_name(),$sformatf("[%0t]: AWREADY=%0d WREADY=%0d BRESP=%0d BVALID=%0d ARREADY=%0d RDATA=%0d RRESP=%0d RVALID=%0d",$time,req.AWREADY,req.WREADY,req.BRESP,req.BVALID,req.ARREADY,req.RDATA,req.RRESP,req.RVALID),UVM_MEDIUM); 	
+	//`uvm_info(get_type_name(),$sformatf("[%0t]: awaddr=%0d awvalid=%0d wdata=%0d wstrb=%0d wvalid=%0d araddr=%0d arvalid=%0d",$time,a_awaddr,a_awvalid,a_wdata,a_wstrb,a_wvalid,a_araddr,a_arvalid),UVM_MEDIUM);
+	//`uvm_info(get_type_name(),$sformatf("[%0t]: AWADDR=%0d AWVALID=%0d WDATA=%0d WSTRB=%0d WVALID=%0d BREADY=%0d ARADDR=%0d ARVALID=%0d RREADY=%0d",$time,req.AWADDR,req.AWVALID,req.WDATA,req.WSTRB,req.WVALID,req.BREADY, req.ARADDR,req.ARVALID,req.RREADY),UVM_MEDIUM);	
+	//`uvm_info(get_type_name(),$sformatf("[%0t]: AWREADY=%0d WREADY=%0d BRESP=%0d BVALID=%0d ARREADY=%0d RDATA=%0d RRESP=%0d RVALID=%0d",$time,req.AWREADY,req.WREADY,req.BRESP,req.BVALID,req.ARREADY,req.RDATA,req.RRESP,req.RVALID),UVM_MEDIUM); 	
 		if(req.AWVALID)
 		begin
 			//$display("%0t GOT AWVALID",$time);

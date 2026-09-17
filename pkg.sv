@@ -12,7 +12,7 @@ package pkg;
     `include "ip_agent.sv"
     `include "op_agent.sv"
     `include "scoreboard.sv"
-    //`include "subscriber.sv"
+    `include "subscriber.sv"
     `include "environment.sv"
     `include "test.sv"
 endpackage
